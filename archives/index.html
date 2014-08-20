@@ -95,7 +95,7 @@
 <p><a href="http://docs.mongodb.org/manual/core/capped-collections/" target="_blank" rel="external">Capped Collections</a> 是大小固定，基于插入顺序，支持高效数据插入、检索与删除的集合。集合创建即被分配空间，如果集合空间填满，新插入的数据将替换最老的数据。</p>
 <h2 id="特性">特性</h2>
 <ul>
-<li>Capped Collection </li>
+<li>顺序存储插入的文档，无需索引，吞吐量大，接近实际硬件IO</li>
 <li>保证了插入顺序与磁盘上的自然顺序相同，文档插入后不允许增大size，保证磁盘上不改变存储位置</li>
 <li>自动删除集合中最老的文档，无需任何脚本</li>
 </ul>
@@ -106,14 +106,35 @@
 <p>通过size指定集合的最大分配空间，创建集合后，mongodb就将为该集合预分配100000byte的空间（但由于内部开销，实际上会稍多）。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.createCollection(<span class="string">"log"</span>, { capped : <span class="literal">true</span>, size : <span class="number">5242880</span>, max : <span class="number">5000</span> } )</div></pre></td></tr></table></figure>
 
-<p>使用max指定最大文档数。</p>
+<p>使用max指定最大文档个数。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.createCollection.isCapped()</div></pre></td></tr></table></figure>
+
+<p>通过isCapped()方法查看集合是不是Capped Collection。</p>
 <h3 id="查询">查询</h3>
-<p><em>未完待续…</em></p>
+<p>同样的，对集合我们使用find()方法进行查询，默认情况下Capped Collection的返回结果是按实际插入顺序返回的，我们可以通过如下方式反转查询结果。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.cappedCollection.find().sort( { <span class="variable">$natural</span>: -<span class="number">1</span> } )</div></pre></td></tr></table></figure>
+
+<h3 id="集合状态">集合状态</h3>
+<p>可通过如下shell命令查看集合状态。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.collection.stats()</div></pre></td></tr></table></figure>
+
+<p><img src="http://localhost/mongo/Img/stats.png" alt=""></p>
+<p>其中storageSize即是集合分配总大小，size为数据总大小，avgObjSize为插入的文档大小的平均值。</p>
+<h3 id="将普通集合转换为Capped_Collection">将普通集合转换为Capped Collection</h3>
+<p>通过如下方式，可将一个集合转换为Capped Collection。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.runCommand({<span class="string">"convertToCapped"</span>: <span class="string">"mycoll"</span>, size: <span class="number">100000</span>});</div></pre></td></tr></table></figure>
+
+<h2 id="应用场景">应用场景</h2>
+<p>Capped Collection在某些特殊的使用场景中非常有效，例如系统运行日志、监控数据（历史数据），在RDBMS中就需要做分区表，定期清理，而mongodb中只要设置好size或者max值则不需要考虑。</p>
+<h2 id="问题">问题</h2>
+<ul>
+<li>创建的Capped Collection默认存在索引，不知道为什么…..</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/08/20/Capped Collection/" data-id="jt09cgrirbnzlqxa" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/08/20/Capped Collection/" data-id="bn308ozp3b70pkfc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -281,7 +302,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/08/05/MongoDB-Getting-Started/" data-id="2x4pbd8et1p271it" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/08/05/MongoDB-Getting-Started/" data-id="3sbj67r6a0nxd8ou" class="article-share-link">Share</a>
       
       
     </footer>
@@ -335,7 +356,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/08/05/hello-world/" data-id="nsjk9iycaz8hckra" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/08/05/hello-world/" data-id="5jhhsvfr3l3igp2c" class="article-share-link">Share</a>
       
       
     </footer>
