@@ -5,8 +5,7 @@
   
   <title>Capped Collection | HuangShan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Capped Collection
-定义
+  <meta name="description" content="定义
 Capped Collections 是大小固定，基于插入顺序，支持高效数据插入、检索与删除的集合。集合创建即被分配空间，如果集合空间填满，新插入的数据将替换最老的数据。
 特性
 
@@ -14,13 +13,12 @@ Capped Collection
 保证了插入顺序与磁盘上的自然顺序相同，文档插入后不允许增大size，保证磁盘上不改变存储位置
 自动删除集合中最老的文档，无需任何脚本
 
-1$">
+对Capped Collection进行">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Capped Collection">
 <meta property="og:url" content="http://yoursite.com/2014/08/20/Capped Collection/">
 <meta property="og:site_name" content="HuangShan">
-<meta property="og:description" content="Capped Collection
-定义
+<meta property="og:description" content="定义
 Capped Collections 是大小固定，基于插入顺序，支持高效数据插入、检索与删除的集合。集合创建即被分配空间，如果集合空间填满，新插入的数据将替换最老的数据。
 特性
 
@@ -28,11 +26,10 @@ Capped Collection
 保证了插入顺序与磁盘上的自然顺序相同，文档插入后不允许增大size，保证磁盘上不改变存储位置
 自动删除集合中最老的文档，无需任何脚本
 
-1$">
+对Capped Collection进行">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Capped Collection">
-<meta name="twitter:description" content="Capped Collection
-定义
+<meta name="twitter:description" content="定义
 Capped Collections 是大小固定，基于插入顺序，支持高效数据插入、检索与删除的集合。集合创建即被分配空间，如果集合空间填满，新插入的数据将替换最老的数据。
 特性
 
@@ -40,7 +37,7 @@ Capped Collection
 保证了插入顺序与磁盘上的自然顺序相同，文档插入后不允许增大size，保证磁盘上不改变存储位置
 自动删除集合中最老的文档，无需任何脚本
 
-1$">
+对Capped Collection进行">
 
   
     <link rel="alternative" href="/atom.xml" title="HuangShan" type="application/atom+xml">
@@ -116,23 +113,29 @@ Capped Collection
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Capped_Collection">Capped Collection</h2>
-<h3 id="定义">定义</h3>
+        <h2 id="定义">定义</h2>
 <p><a href="http://docs.mongodb.org/manual/core/capped-collections/" target="_blank" rel="external">Capped Collections</a> 是大小固定，基于插入顺序，支持高效数据插入、检索与删除的集合。集合创建即被分配空间，如果集合空间填满，新插入的数据将替换最老的数据。</p>
-<h3 id="特性">特性</h3>
+<h2 id="特性">特性</h2>
 <ul>
 <li>Capped Collection </li>
 <li>保证了插入顺序与磁盘上的自然顺序相同，文档插入后不允许增大size，保证磁盘上不改变存储位置</li>
 <li>自动删除集合中最老的文档，无需任何脚本</li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+<h2 id="对Capped_Collection进行操作">对Capped Collection进行操作</h2>
+<h3 id="创建">创建</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.createCollection( <span class="string">"log"</span>, { capped: <span class="literal">true</span>, size: <span class="number">100000</span> } )<span class="string">"</span></div></pre></td></tr></table></figure>
 
+<p>通过size指定集合的最大分配空间，创建集合后，mongodb就将为该集合预分配100000byte的空间（但由于内部开销，实际上会稍多）。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.createCollection(<span class="string">"log"</span>, { capped : <span class="literal">true</span>, size : <span class="number">5242880</span>, max : <span class="number">5000</span> } )</div></pre></td></tr></table></figure>
+
+<p>使用max指定最大文档数。</p>
+<h3 id="查询">查询</h3>
 <p><em>未完待续…</em></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/08/20/Capped Collection/" data-id="iw4ev4rg9ps621vz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/08/20/Capped Collection/" data-id="jt09cgrirbnzlqxa" class="article-share-link">Share</a>
       
       
     </footer>
