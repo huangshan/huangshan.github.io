@@ -130,14 +130,41 @@
 <p>MongoDB支持对任一单键建立哈希索引。哈希函数会折叠子文档并计算整体的哈希值，但是它不支持多键索引(例如数组)。所以不能创建一个含有哈希索引的复合索引</p>
 <h3 id="在复制集上创建索引">在复制集上创建索引</h3>
 <h3 id="后台创建索引">后台创建索引</h3>
+<p>默认地，MongoDB在前台创建索引。在索引创建期间这会阻塞对数据库的所有读写操作。而且，任何需要所有数据库的读/写锁的操作都无法在索引创建期间执行。<br>在后台创建索引允许在索引创建期间继续执行读和写操作。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.collection.ensureIndex( { a: <span class="number">1</span> }, { background: <span class="literal">true</span> } )</div></pre></td></tr></table></figure>
+
 <h2 id="索引的管理">索引的管理</h2>
+<h3 id="删除索引">删除索引</h3>
+<h4 id="移除一条指定索引">移除一条指定索引</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.collection.dropIndex( { <span class="string">"a"</span>: <span class="number">1</span> } )</div></pre></td></tr></table></figure>
+
+<p>操作将会返回一个文档以表示这个操作的状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ { <span class="string">"nIndexesWas"</span> : <span class="number">3</span>, <span class="string">"ok"</span> : <span class="number">1</span> }</div></pre></td></tr></table></figure>
+
+<p>其中nIndexesWas的值代表了在删除索引以前索引的数量。</p>
+<h4 id="删除所有索引">删除所有索引</h4>
+<p>使用如下方法删除文档中的所有索引。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.collection.dropIndexs()</div></pre></td></tr></table></figure>
+
+<h3 id="修改索引">修改索引</h3>
+<p>如果希望修改一条索引，我们需要删除然后重建。</p>
+<h3 id="重建索引">重建索引</h3>
+<p>如果需要重建集合中的索引，可以使用db.collection.reIndex()，一条操作就可以重建这个集合上的所有索引。它会删除所有索引，包括_id索引 ，然后重建所有索引。</p>
+<h3 id="返回所有索引">返回所有索引</h3>
+<p>在维护过程中，您可能希望检查某个索引是否还存在。集合中的每个索引在 system.indexes 集合中都存有一份相对应的 document ，然后您可以使用标准查询(例如，方法 find() ) 列出所有索引，或者在 mongo shell 使用 getIndexes() 方法返回集合的索引列表。</p>
+<h4 id="列出一个集合中的所有索引">列出一个集合中的所有索引</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.collection.getIndexes()</div></pre></td></tr></table></figure>
+
+<h4 id="列出一个数据库的所有索引">列出一个数据库的所有索引</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ db.system.indexes.find()</div></pre></td></tr></table></figure>
+
 <h2 id="地理索引">地理索引</h2>
 <h2 id="文本搜索">文本搜索</h2>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/11/11/MongoDB Index/" data-id="2qxvaecdwbq2i1da" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/11/11/MongoDB Index/" data-id="sp7pacabc4tn1kk3" class="article-share-link">Share</a>
       
       
     </footer>
@@ -175,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/08/20/GridFS/" data-id="kwfrmnrbdz04uazj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/08/20/GridFS/" data-id="6vguphlravys2yuj" class="article-share-link">Share</a>
       
       
     </footer>
@@ -252,7 +279,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/08/20/Capped Collection/" data-id="t4jqs112xrbbg0dz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/08/20/Capped Collection/" data-id="2xryae7o1kzmzb6u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -420,7 +447,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/08/05/MongoDB-Getting-Started/" data-id="xsk2zye4ddqkmygn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/08/05/MongoDB-Getting-Started/" data-id="hlymxmj7i118kp8f" class="article-share-link">Share</a>
       
       
     </footer>
@@ -474,7 +501,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/08/05/hello-world/" data-id="sa6mihcn9n2jhjvn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/08/05/hello-world/" data-id="ozfbpzbm50j2xaz3" class="article-share-link">Share</a>
       
       
     </footer>
