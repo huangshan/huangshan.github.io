@@ -3,20 +3,41 @@
 <head>
   <meta charset="utf-8">
   
-  <title>GridFS | HuangShan</title>
+  <title>Geo Index | HuangShan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="GridFS是MongoDB里面用来存储和检索超过16MB的文件的一种规范。
-MongoDB Limits">
+  <meta name="description" content="关于地理空间索引
+MongoDB提供了一系列的索引和查询机制来处理地理空间信息，关于地理空间信息的索引称之为地理空间索引。
+表面类型
+球面
+如果需要计算地理数据就像在一个类似于地球的球形表面上，您可以选择球形表面来存储数据，这样就可以使用 2dsphere 索引。
+平面
+如果需要计算距离，就像在一个欧几里德平面上，您可以按照正常坐标对的形式存储位置数据并使用 2d 索引。
+位置数据
+如果您选择球形">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GridFS">
-<meta property="og:url" content="http://yoursite.com/2014/08/20/GridFS/">
+<meta property="og:title" content="Geo Index">
+<meta property="og:url" content="http://yoursite.com/2014/11/18/GEO Index/">
 <meta property="og:site_name" content="HuangShan">
-<meta property="og:description" content="GridFS是MongoDB里面用来存储和检索超过16MB的文件的一种规范。
-MongoDB Limits">
+<meta property="og:description" content="关于地理空间索引
+MongoDB提供了一系列的索引和查询机制来处理地理空间信息，关于地理空间信息的索引称之为地理空间索引。
+表面类型
+球面
+如果需要计算地理数据就像在一个类似于地球的球形表面上，您可以选择球形表面来存储数据，这样就可以使用 2dsphere 索引。
+平面
+如果需要计算距离，就像在一个欧几里德平面上，您可以按照正常坐标对的形式存储位置数据并使用 2d 索引。
+位置数据
+如果您选择球形">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GridFS">
-<meta name="twitter:description" content="GridFS是MongoDB里面用来存储和检索超过16MB的文件的一种规范。
-MongoDB Limits">
+<meta name="twitter:title" content="Geo Index">
+<meta name="twitter:description" content="关于地理空间索引
+MongoDB提供了一系列的索引和查询机制来处理地理空间信息，关于地理空间信息的索引称之为地理空间索引。
+表面类型
+球面
+如果需要计算地理数据就像在一个类似于地球的球形表面上，您可以选择球形表面来存储数据，这样就可以使用 2dsphere 索引。
+平面
+如果需要计算距离，就像在一个欧几里德平面上，您可以按照正常坐标对的形式存储位置数据并使用 2d 索引。
+位置数据
+如果您选择球形">
 
   
     <link rel="alternative" href="/atom.xml" title="HuangShan" type="application/atom+xml">
@@ -70,10 +91,10 @@ MongoDB Limits">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-GridFS" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-GEO Index" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/08/20/GridFS/" class="article-date">
-  <time datetime="2014-08-20T07:59:20.000Z" itemprop="datePublished">Aug 20 2014</time>
+    <a href="/2014/11/18/GEO Index/" class="article-date">
+  <time datetime="2014-11-18T14:50:11.000Z" itemprop="datePublished">Nov 18 2014</time>
 </a>
     
   </div>
@@ -84,7 +105,7 @@ MongoDB Limits">
         
   
     <h1 class="article-title" itemprop="name">
-      GridFS
+      Geo Index
     </h1>
   
 
@@ -92,13 +113,56 @@ MongoDB Limits">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>GridFS是MongoDB里面用来存储和检索超过16MB的文件的一种规范。</p>
-<p><a href="http://docs.mongodb.org/manual/reference/limits/" target="_blank" rel="external">MongoDB Limits</a></p>
+        <h2 id="关于地理空间索引">关于地理空间索引</h2>
+<p>MongoDB提供了一系列的索引和查询机制来处理地理空间信息，关于地理空间信息的索引称之为地理空间索引。</p>
+<h3 id="表面类型">表面类型</h3>
+<h4 id="球面">球面</h4>
+<p>如果需要计算地理数据就像在一个类似于地球的球形表面上，您可以选择球形表面来存储数据，这样就可以使用 2dsphere 索引。</p>
+<h4 id="平面">平面</h4>
+<p>如果需要计算距离，就像在一个欧几里德平面上，您可以按照正常坐标对的形式存储位置数据并使用 2d 索引。</p>
+<h3 id="位置数据">位置数据</h3>
+<p>如果您选择球形表面来计算，您可以选择把位置数据存储为如下两种格式之一：</p>
+<h4 id="GeoJSON对象">GeoJSON对象</h4>
+<p>对 GeoJSON 的查询总是基于球形表面。GeoJSON的默认坐标参考系使用的是 WGS84 数据。<br>MongoDB支持如下GeoJSON对象：</p>
+<ul>
+<li>单点</li>
+<li>线段</li>
+<li>多边形</li>
+<li>多点</li>
+<li>多线段</li>
+<li>MultiPolygon</li>
+<li>几何体集合<h4 id="普通坐标对">普通坐标对</h4>
+</li>
+</ul>
+<h3 id="查询操作">查询操作</h3>
+<p>MongoDB地理空间查询操作允许查询包括($geoWithin)、交叉($geoIntersects)、邻近($near)</p>
+<h3 id="地理空间索引">地理空间索引</h3>
+<p>MongoDB提供了如下的地理索引类型来支持地理查询：</p>
+<h4 id="2dsphere">2dsphere</h4>
+<p>2dsphere 索引可以支持如下特性：</p>
+<ul>
+<li>在球形平面上的计算</li>
+<li>GeoJSON对象和对普通坐标对的向后兼容</li>
+<li>复合索引。这个复合索引可以包含一个 2dsphere 索引字段以及一些按升序或降序建立的普通索引字段(作为 2dsphere 索引的前缀或者后缀)</li>
+</ul>
+<h4 id="2d">2d</h4>
+<p>2d 索引支持如下特性：</p>
+<ul>
+<li>使用平面几何的方式计算</li>
+<li>普通坐标对（比如，在一个平面坐标系中的点）</li>
+<li>作为复合索引，额外索引一个键。方法是，把额外的一个键作为 2d 索引键的后缀</li>
+</ul>
+<h2 id="2dsphere_索引">2dsphere 索引</h2>
+<h2 id="2d_索引">2d 索引</h2>
+<h2 id="创建2dsphere索引">创建2dsphere索引</h2>
+<h2 id="查询2dsphere索引">查询2dsphere索引</h2>
+<h2 id="创建2d索引">创建2d索引</h2>
+<h2 id="查询2d索引">查询2d索引</h2>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/08/20/GridFS/" data-id="3g2j1fx4g5ou7by2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/11/18/GEO Index/" data-id="2wjc2i2i2jhs3dng" class="article-share-link">Share</a>
       
       
     </footer>
@@ -107,19 +171,10 @@ MongoDB Limits">
     
 <nav id="article-nav">
   
-    <a href="/2014/11/11/MongoDB Index/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          MongoDB Index
-        
-      </div>
-    </a>
   
-  
-    <a href="/2014/08/20/Capped Collection/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2014/11/11/MongoDB Index/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Capped Collection</div>
+      <div class="article-nav-title">MongoDB Index</div>
     </a>
   
 </nav>
